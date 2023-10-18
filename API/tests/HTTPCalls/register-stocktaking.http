@@ -1,0 +1,49 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+POST http://cintas-api.test/api/stocktakings
+Content-Type: application/json
+
+{
+  "data": {
+    "cuid": "",
+    "created_at": "2019-06-17T17:28:33+00:00",
+    "updated_at": "2019-06-17T17:28:33+00:00",
+    "responsible_person_name": "Andreas Fuhr",
+    "notes": "Die ist ein Test",
+    "location_id": "cjpl2rcjx000e90qyy8yf51m2",
+    "location_type": "LaundryCustomer",
+    "stocktaking_entries": [
+      {
+        "cuid": "",
+        "stock_id": "cjpl2rcuu001390qyiakwd26j",
+        "stock_label": "12\" x 12\" Microfiber Wiper (Blue)",
+        "is_amount": 7,
+        "item_ids": [
+          "cjpl2roob14a890qy92r8u6vf",
+          "cjpl2rn9j0u7i90qy634qlesu",
+          "cjpl2rotc171590qyxmu5s2q7",
+          "cjpl2rna20uj090qyjuuyjmet",
+          "cjpl2rlvc0lg990qybbobu4m4",
+          "cjpl2rqtf1j1s90qy9q3xxzfj",
+          "cjpl2roto178q90qykubeld6r"
+        ]
+      },
+      {
+        "stock_id": "cjpl2rcut001090qyy2edrdmh",
+        "stock_label": "20\" Microfiber Mop Head",
+        "is_amount": 3,
+        "item_ids": [
+          "cjpl2rdqb00f090qygtfawzay",
+          "cjpl2rjz20cnu90qyozgrhy3b",
+          "cjpl2rjzv0d5690qy8po4mi0g"
+        ]
+      }
+    ]
+  }
+}
+
+###

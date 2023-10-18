@@ -1,0 +1,70 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+POST http://cintas-api.test/api/reads/portal-out-read
+Content-Type: application/json
+
+{
+  "data": [
+    {
+      "IP": "169.254.1.1",
+      "Name": "Gate",
+      "Optional": "Workwear",
+      "Lightbarrier": "Outgoing",
+      "Tags": [
+        {
+          "EPC": "A30A20130206000000000001",
+          "Timestamp": "2018-10-24T16:00:00+02:00",
+          "Antenna": "1"
+        },
+        {
+          "EPC": "A30A20130206000000000002",
+          "Timestamp": "2018-10-24T16:00:01+02:00",
+          "Antenna": "1"
+        },
+        {
+          "EPC": "A30A20130206000000000003",
+          "Timestamp": "2018-10-24T16:00:01+02:00",
+          "Antenna": "1"
+        },
+        {
+          "EPC": "A30A20130206000000000004",
+          "Timestamp": "2018-10-24T16:00:01+02:00",
+          "Antenna": "1"
+        },
+        {
+          "EPC": "A30A20130206000000000005",
+          "Timestamp": "2018-10-24T16:00:01+02:00",
+          "Antenna": "1"
+        },
+        {
+          "EPC": "A30A20130206000000000006",
+          "Timestamp": "2018-10-24T16:00:01+02:00",
+          "Antenna": "1"
+        },
+
+        {
+          "EPC": "A30A20130206000000000011",
+          "Timestamp": "2018-10-24T16:00:01+02:00",
+          "Antenna": "2"
+        },
+        {
+          "EPC": "A30A20130206000000000012",
+          "Timestamp": "2018-10-24T16:00:01+02:00",
+          "Antenna": "2"
+        },
+
+        {
+          "EPC": "7461676974726F2000000000",
+          "Timestamp": "2018-10-24T16:00:02+02:00",
+          "Antenna": "1"
+        }
+      ]
+    }
+  ]
+}
+
+###

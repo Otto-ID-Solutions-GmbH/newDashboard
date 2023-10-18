@@ -1,0 +1,237 @@
+<cintas-statistics-page-menu
+  title="Dashboard">
+</cintas-statistics-page-menu>
+
+<ng-container *ngIf="{
+  itemsAtLocations: itemsAtLocation$ | async,
+  incomingOutgoingProductsData: incomingOutgoingProductsData$ | async,
+  bundleRatioData: bundleRatioData$ | async
+} as data">
+
+  <h2 class="h4 mt-2">Location KPIs</h2>
+
+  <div class="row mb-4">
+
+    <cintas-dash-card
+      title="Items at Location"
+      [link]="kpis.itemsAtLocation.link"
+      [icon]="kpis.itemsAtLocation.icon"
+      [kpiNumber]="itemsAtLocationTotalCount"
+      label="Items at Location"
+      [data]="data.itemsAtLocations">
+      <ng-template>
+        <ngx-charts-pie-chart
+          cintasPieChartMargins
+          [view]="dashboardView"
+          [scheme]="colorScheme"
+          [results]="data.itemsAtLocations"
+          [legend]="showLegend"
+          [explodeSlices]="explodeSlices"
+          [labels]="showLabels"
+          [doughnut]="doughnut"
+          (select)="onSelect($event)">
+        </ngx-charts-pie-chart>
+      </ng-template>
+    </cintas-dash-card>
+
+
+  </div>
+
+</ng-container>
+
+
+<ng-container *ngIf="{
+  itemsAtCustomers: itemsAtCustomers$ | async,
+  deliveredProductsData: deliveredProductsData$ | async,
+  returnedProductsData: returnedProductsData$ | async
+} as data">
+
+  <h2 class="h4">Customer KPIs</h2>
+
+  <div class="row mb-4">
+
+    <cintas-dash-card
+
+      title="Items at Customers"
+      [link]="kpis.itemsAtLocation.link"
+      [icon]="kpis.itemsAtLocation.icon"
+      [kpiNumber]="itemsAtCustomersTotalCount"
+      label="Items at Customers"
+      [data]="data.itemsAtCustomers">
+      <ng-template>
+        <ngx-charts-pie-chart
+          cintasPieChartMargins
+          [view]="dashboardView"
+          [scheme]="colorScheme"
+          [results]="data.itemsAtCustomers"
+          [legend]="showLegend"
+          [explodeSlices]="explodeSlices"
+          [labels]="showLabels"
+          [doughnut]="doughnut"
+          (select)="onSelect($event)">
+        </ngx-charts-pie-chart>
+      </ng-template>
+    </cintas-dash-card>
+
+
+    <cintas-dash-card
+      [title]="kpis.deliveredProducts.label + ' (2 weeks)'"
+      [link]="kpis.deliveredProducts.link"
+      [icon]="kpis.deliveredProducts.icon"
+      [data]="data.deliveredProductsData"
+      [style]="'one-col'"
+      cintasFillParentContainer
+      [widthRatio]="3"
+      (parentSizeChanged)="changeView($event)">
+
+      <ng-template>
+        <ngx-charts-bar-vertical-2d
+          [results]="data.deliveredProductsData"
+          [scheme]="colorScheme"
+
+          [legend]="showLegend"
+          [xAxis]="false"
+          [showXAxisLabel]="false"
+
+          [yAxis]="true"
+          yAxisLabel="#Items delivered"
+          [showYAxisLabel]="true"
+
+          [barPadding]="barPadding"
+          [groupPadding]="barGroupPadding"
+
+          [roundDomains]="true">
+
+          <ng-template #tooltipTemplate let-model="model">
+            <div class="tooltip-label">Deliveries to {{model.name}} on {{model.series | date:'longDate'}}</div>
+            <div class="tooltip-val">{{model.value}} items</div>
+            <div class="mt-2 text-left">
+              <table class="table table-sm table-bordered">
+                <tbody>
+                <tr *ngFor="let pp of model.per_product">
+                  <td>{{pp.name}}</td>
+                  <td>{{pp.value}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </ng-template>
+
+        </ngx-charts-bar-vertical-2d>
+      </ng-template>
+
+    </cintas-dash-card>
+
+
+    <cintas-dash-card
+      [title]="kpis.returnedProducts.label + ' (2 weeks)'"
+      [link]="kpis.returnedProducts.link"
+      [icon]="kpis.returnedProducts.icon"
+      [data]="data.returnedProductsData"
+      [style]="'one-col'"
+      cintasFillParentContainer
+      [widthRatio]="3"
+      (parentSizeChanged)="changeView($event)">
+
+      <ng-template>
+        <ngx-charts-bar-vertical-2d
+          [results]="data.returnedProductsData"
+          [scheme]="colorScheme"
+
+          [legend]="showLegend"
+          [xAxis]="false"
+          [showXAxisLabel]="false"
+
+          [yAxis]="true"
+          yAxisLabel="#Items returned"
+          [showYAxisLabel]="true"
+
+          [barPadding]="barPadding"
+          [groupPadding]="barGroupPadding"
+
+          [roundDomains]="true">
+
+          <ng-template #tooltipTemplate let-model="model">
+            <div class="tooltip-label">Return from {{model.name}}</div>
+            <div class="tooltip-val">{{model.value}} items</div>
+            <div class="mt-2 text-left">
+              <table class="table table-sm table-bordered">
+                <tbody>
+                <tr>
+                  <td>Clean return</td>
+                  <td>{{model.clean_count}}</td>
+                </tr>
+                <tr>
+                  <td>Soil return</td>
+                  <td>{{model.soil_count}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </ng-template>
+
+        </ngx-charts-bar-vertical-2d>
+      </ng-template>
+
+    </cintas-dash-card>
+
+  </div>
+
+</ng-container>
+
+
+<ng-container *ngIf="{
+  groupedCycleCount: groupedCycleCount$ | async,
+  avgTurnaroundTime: avgTurnaroundTime$ | async
+} as data">
+
+  <h2 class="h4">Product KPIs</h2>
+
+  <div class="row mb-4">
+
+    <cintas-dash-card
+
+      [title]="kpis.productAgeSummary.label"
+      [link]="kpis.productAgeSummary.link"
+      [icon]="kpis.productAgeSummary.icon"
+
+      label="Avg. Cycle Count"
+      [data]="data.groupedCycleCount">
+      <div kpiNumber>{{totalAvgCycleCount | number:'1.1-1'}}</div>
+      <ng-template>
+        <ngx-charts-pie-chart
+          cintasPieChartMargins
+          [view]="dashboardView"
+          [scheme]="colorScheme"
+          [results]="data.groupedCycleCount"
+          [legend]="showLegend"
+          [explodeSlices]="explodeSlices"
+          [labels]="showLabels"
+          [doughnut]="doughnut"
+          (select)="onSelect($event)">
+        </ngx-charts-pie-chart>
+      </ng-template>
+    </cintas-dash-card>
+
+    <cintas-dash-card
+      [title]="kpis.avgTurnaroundTime.label + ' (1 month)'"
+      [link]="kpis.avgTurnaroundTime.link"
+      [icon]="kpis.avgTurnaroundTime.icon"
+
+      label="Avg. Turnaround Time [Days]"
+      [data]="data.avgTurnaroundTime">
+      <div kpiNumber>{{totalAvgTurnaroundTime | number:'1.0-1'}}</div>
+      <ng-template>
+        <ngx-charts-bar-vertical
+          [scheme]="colorScheme"
+          [view]="dashboardView"
+          [results]="data.avgTurnaroundTime"
+          [legend]="showLegend"
+          (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+      </ng-template>
+    </cintas-dash-card>
+
+  </div>
+
+</ng-container>

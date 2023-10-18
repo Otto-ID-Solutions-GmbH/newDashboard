@@ -1,0 +1,130 @@
+<cintas-statistics-page-menu
+  title="Items at Site"
+  [features]="features">
+</cintas-statistics-page-menu>
+
+<h2>Items at Location Overview</h2>
+
+<div class="row mb-5">
+
+  <div class="col-12 col-md-6 justify-content-center d-flex">
+    <cintas-chart-box
+      chartInfoTitle="Items at Location"
+      [chartInfo]="chartInfoAtLocations">
+      <ngx-charts-pie-chart
+        cintasFillParentContainer
+        [widthRatio]="2"
+        [scheme]="colorScheme"
+        [results]="itemsAtLocation$ | async"
+        [legend]="showLegend"
+        [explodeSlices]="explodeSlices"
+        [labels]="false"
+        [doughnut]="doughnut"
+        [trimLabels]="false"
+        legendTitle="Locations"
+        (select)="onSelect($event)">
+      </ngx-charts-pie-chart>
+    </cintas-chart-box>
+  </div>
+
+  <div class="col-12 col-md-6 justify-content-center d-flex">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Site</th>
+        <th scope="col"># Items</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let loc of itemsAtLocation$ | async; let i=index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{loc.name}}</td>
+        <td>{{loc.value}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<h2>Items at Customers Overview</h2>
+
+<div class="row mb-5">
+  <div class="col-12 col-md-6 justify-content-center d-flex">
+
+    <cintas-chart-box
+      chartInfoTitle="Items at Customers"
+      [chartInfo]="chartInfoAtCustomers">
+      <ngx-charts-pie-chart
+        cintasFillParentContainer
+        [widthRatio]="2"
+        [scheme]="colorScheme"
+        [results]="itemsAtCustomers$ | async"
+        [legend]="showLegend"
+        [explodeSlices]="explodeSlices"
+        [labels]="false"
+        [doughnut]="doughnut"
+        [trimLabels]="false"
+        legendTitle="Locations"
+        (select)="onSelect($event)">
+      </ngx-charts-pie-chart>
+    </cintas-chart-box>
+
+  </div>
+
+  <div class="col-12 col-md-6 justify-content-center d-flex">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Site</th>
+        <th scope="col"># Items</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let loc of itemsAtCustomers$ | async; let i=index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{loc.name}}</td>
+        <td>{{loc.value}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+<div class="row">
+  <div class="col">
+    <cintas-chart-box
+      chartInfoTitle="Items per Site per Product"
+      [chartInfo]="chartInfoAtSitesPerProduct">
+      <h2>Items per Site per Product</h2>
+    </cintas-chart-box>
+  </div>
+</div>
+
+<div class="row mb-5">
+  <div class="btn col d-flex col-12 col-md-6 col-xl my-3" *ngFor="let cust of noItemPerProduct$ | async"
+       role="button"
+       (click)="onSelect(cust.name == 'Unknown' ? 'Unknown' : cust.cuid)">
+    <div class="card justify-content-center flex-fill bg-light">
+      <div class="card-body text-center py-2">
+        <h6 class="card-title">
+          {{cust.name}}
+        </h6>
+        <div class="row">
+          <div class="col-12 d-flex justify-content-center flex-fill">
+            <ngx-charts-pie-chart
+              cintasPieChartMargins
+              [view]="[150,150]"
+              [scheme]="colorScheme"
+              [results]="cust.series">
+            </ngx-charts-pie-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

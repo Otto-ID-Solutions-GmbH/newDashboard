@@ -1,0 +1,34 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+
+  <h1>{{title}}</h1>
+
+  <div class="btn-toolbar mb-2 mb-md-0 d-print-none">
+    <button *ngIf="features.print"
+            class="btn btn-sm btn-outline-primary mr-2" (click)="onPrintClicked()" title="Print page">
+      <fa-icon [icon]="printIcon" class="mr-1"></fa-icon>
+      Print
+    </button>
+
+    <cintas-export-button
+      class="mr-2"
+      *ngIf="features.export"
+      [exportLoadingIndicator]="exportLoadingIndicator"
+      (exportClicked)="onExportClicked($event)">
+    </cintas-export-button>
+
+    <cintas-timeline-selection
+      *ngIf="features.timeline"
+      [timeSelection]="timeSelection"
+      (timeSelectionChanged)="onTimeSelected($event)">
+    </cintas-timeline-selection>
+
+    <cintas-customer-selection
+      *ngIf="features.customers"
+      (customerChange)="onCustomerSelected($event)">
+    </cintas-customer-selection>
+
+    <ng-content></ng-content>
+
+  </div>
+
+</div>

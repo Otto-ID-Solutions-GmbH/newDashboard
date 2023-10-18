@@ -1,0 +1,42 @@
+<div class="card flex-fill bg-light">
+
+  <div class="card-body py-2">
+
+    <h6 class="card-title" *ngIf="title">
+      <fa-icon [icon]="icon" class="mr-1" [fixedWidth]="true"></fa-icon>
+      {{title}}
+    </h6>
+
+    <div class="row" *ngIf="style == 'two-col'">
+      <div *ngIf="!hideText" class="col-12 col-md-6 align-self-center text-center text-md-left">
+          <span *ngIf="dataLoaded">
+          <h4 *ngIf="kpiNumber">{{kpiNumber ? kpiNumber : 'No Data'}}</h4>
+          <h4 *ngIf="!kpiNumber">
+            <ng-content select="[kpiNumber]"></ng-content>
+          </h4>
+          </span>
+        <h4 *ngIf="!dataLoaded">No Data</h4>
+        <p>{{label}}</p>
+      </div>
+      <div *ngIf="hideText && !dataLoaded" class="col-12 col-md-6 align-self-center text-center text-md-left">
+        <h4>No Data</h4>
+      </div>
+      <div class="col-12 col-md-6 align-self-center d-flex justify-content-center" *ngIf="style == 'two-col'">
+        <ng-container *ngTemplateOutlet="chartRef"></ng-container>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center" *ngIf="style == 'one-col'">
+        <ng-container *ngTemplateOutlet="chartRef"></ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <a [routerLink]="link" class="card-link">View Details
+      <fa-icon class="ml-1" [icon]="detailIcon"></fa-icon>
+    </a>
+  </div>
+
+</div>

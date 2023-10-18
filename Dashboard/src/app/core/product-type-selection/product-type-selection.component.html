@@ -1,0 +1,21 @@
+<ng-container *ngIf="{
+  types: types$ | async
+} as data">
+
+  <div class="btn-group d-print-none" dropdown>
+    <button id="button-time" dropdownToggle class="btn btn-sm btn-outline-primary dropdown-toggle"
+            aria-controls="dropdown-time">
+      <fa-icon *ngIf="productTypeSelection" [icon]="typeIcon" class="mr-1"></fa-icon>
+      <fa-icon *ngIf="!productTypeSelection" [icon]="loadingIcon" [spin]="true" class="mr-1"></fa-icon>
+      {{productTypeSelection ? productTypeSelection.label : 'Loading...'}}
+    </button>
+    <div id="dropdown-time" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+         aria-labelledby="button-time">
+      <button class="btn dropdown-item" type="button" *ngFor="let t of data.types"
+              (click)="onTypeSelected(t)">
+        {{t.label}}
+      </button>
+    </div>
+  </div>
+
+</ng-container>

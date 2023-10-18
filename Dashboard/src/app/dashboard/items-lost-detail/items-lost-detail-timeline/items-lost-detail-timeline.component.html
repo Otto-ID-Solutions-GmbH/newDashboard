@@ -1,0 +1,56 @@
+<!--<div class="lead mb-3">
+  <span class="mr-2">Start date: {{startDate | date:'short'}}</span>
+  <span class="mx-2">End date: {{endDate | date:'short'}}</span>
+  <span class="ml-2">Interval: {{interval}}</span>
+</div>-->
+
+<div class="row justify-content-center mb-5">
+  <div class="col-md-10 justify-content-center d-flex my-3">
+
+    <cintas-chart-box
+      chartInfoTitle="Proof Delivery KPI"
+      [chartInfo]="chartInfo">
+      <ngx-charts-line-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="itemsLostTime$ | async"
+
+        [legend]="true"
+        legendTitle="Products"
+        [xAxis]="true"
+        [yAxis]="true"
+        [timeline]="true"
+
+        (select)="onSelect($event)">
+      </ngx-charts-line-chart>
+    </cintas-chart-box>
+
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col">
+    <h2>Product Types and Average # Items in Period</h2>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product Type</th>
+        <th scope="col">Avg. # Items In Period</th>
+        <th scope="col">Avg. # Items Lost in Period</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of itemsLostTime$ | async; let i=index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{data?.name}}</td>
+        <td>{{data?.avg_total_count | number:'1.1-1'}}</td>
+        <td>{{data?.avg_lost_count | number:'1.1-1'}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

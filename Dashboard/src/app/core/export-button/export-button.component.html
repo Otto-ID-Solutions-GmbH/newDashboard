@@ -1,0 +1,10 @@
+<div class="btn-group">
+  <button class="btn btn-sm btn-outline-primary" (click)="onExportClicked()"
+          [title]="description"
+          [disabled]="exportLoadingIndicator === true">
+    <fa-icon [icon]="faFileExport" class="mr-1"></fa-icon>
+    {{title}}
+    <fa-icon *ngIf="exportLoadingIndicator" [icon]="loadingIcon" [spin]="true" class="ml-1"></fa-icon>
+  </button>
+  <!-- Change to divided button with selection of filetype -->
+</div>

@@ -1,0 +1,131 @@
+<div class="container-fluid">
+
+  <nav class="navbar navbar-light fixed-top bg-light d-flex d-md-none d-print-none">
+
+    <a class="navbar-brand" href="#"><img height="30" src="assets/img/cintas-logo.svg"></a>
+
+    <button class="btn btn-sm btn-outline-primary navbar-toggler d-print-none" type="button"
+            data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <fa-icon [icon]="menuIcon" [size]="iconSize"></fa-icon>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+
+      <ul class="navbar-nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="dashboard"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{ exact: true }">
+            <fa-icon [icon]="dashboardIcon" [size]="iconSize" [fixedWidth]="true"></fa-icon>
+            Dashboard <span class="sr-only">(dashboard)</span>
+          </a>
+        </li>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1">
+          <span>KPIs</span>
+        </h6>
+        <li class="nav-item" *ngFor="let kpi of kpiKeys">
+          <a class="nav-link"
+             routerLink="{{kpis[kpi].link}}"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{ exact: true }">
+            <fa-icon [icon]="kpis[kpi].icon" [size]="iconSize" [fixedWidth]="true"></fa-icon>
+            {{kpis[kpi].label}}
+          </a>
+        </li>
+      </ul>
+
+      <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1">
+        <span>Activity Reports</span>
+      </h6>
+      <ul class="navbar-nav flex-column mb-2">
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink="/management/scan-actions"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{ exact: true }">
+            <fa-icon [icon]="rfidReadIcon" [size]="iconSize" [fixedWidth]="true"></fa-icon>
+            RFID Read History
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+
+  <div class="row">
+
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <img height="30" src="assets/img/cintas-logo.svg">
+              <div class="d-none d-lg-block text-dark mt-1">RFID Dashboard</div>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="nav flex-column mb-4">
+          <li class="nav-item">
+            <a class="nav-link"
+               routerLink="dashboard"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }">
+              <fa-icon [icon]="dashboardIcon" [size]="iconSize" [fixedWidth]="true"></fa-icon>
+              Dashboard <span class="sr-only">(dashboard)</span>
+            </a>
+          </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1">
+          <span>KPIs</span>
+        </h6>
+        <ul class="nav flex-column mb-4">
+          <li class="nav-item" *ngFor="let kpi of kpiKeys">
+            <a class="nav-link"
+               routerLink="{{kpis[kpi].link}}"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }">
+              <fa-icon [icon]="kpis[kpi].icon" [size]="iconSize" [fixedWidth]="true"></fa-icon>
+              {{kpis[kpi].label}}
+            </a>
+          </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1">
+          <span>Activity Reports</span>
+        </h6>
+        <ul class="nav flex-column mb-4">
+          <li class="nav-item">
+            <a class="nav-link"
+               routerLink="/management/scan-actions"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }">
+              <fa-icon [icon]="rfidReadIcon" [size]="iconSize" [fixedWidth]="true"></fa-icon>
+              RFID Read History
+            </a>
+          </li>
+        </ul>
+
+        <h6 class="sidebar-heading px-3 mt-5 mb-1">
+          <span>Active Facility</span>
+        </h6>
+        <ul class="nav flex-column mb-4">
+          <li class="nav-item">
+            <a class="nav-link disabled">Cintas Columbus</a>
+          </li>
+        </ul>
+
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+</div>

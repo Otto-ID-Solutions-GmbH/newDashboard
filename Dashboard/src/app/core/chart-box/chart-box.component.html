@@ -1,0 +1,15 @@
+<ng-template #popTemplate>
+  <div [innerHtml]="chartInfo"></div>
+</ng-template>
+<div class="icon-overlay-container">
+  <ng-content></ng-content>
+  <div *ngIf="chartInfo" role="button" class="icon-overlay"
+       [class.infoOpen]="infoIsOpen"
+       [popover]="popTemplate"
+       [popoverTitle]="chartInfoTitle ? chartInfoTitle : 'Description'"
+       placement="auto"
+       (onShown)="onShow()"
+       (onHidden)="onHide()">
+    <fa-icon [size]="'lg'" [icon]="infoIcon"></fa-icon>
+  </div>
+</div>

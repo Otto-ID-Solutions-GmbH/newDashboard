@@ -1,0 +1,119 @@
+<cintas-statistics-page-menu
+  [title]="'Customer Summary' + (selectedCustomer ? (' for ' + selectedCustomer.label + '') : '')"
+  [features]="features"
+  (customerSelect)="onCustomerSelected($event)">
+</cintas-statistics-page-menu>
+
+<div class="row m-5" *ngIf="!selectedCustomer">
+
+  <div class="col-12">
+    <div class="alert alert-primary" role="alert">
+      To show a customer summary page, please select a customer in the top-right menu first...
+    </div>
+
+  </div>
+
+</div>
+
+<div *ngIf="selectedCustomer">
+
+  <h4 class="mb-4 text-dark">Summary from {{summaryDate | date:'long':'EST'}}</h4>
+
+  <div class="avoid-page-break">
+    <h2 class="mb-2">Items on Site at Customer</h2>
+
+    <div class="row mb-5">
+
+      <div class="col justify-content-center d-flex"
+           cintasFillParentContainer
+           [widthRatio]="2"
+           (parentSizeChanged)="changeView($event)">
+
+        <ngx-charts-bar-vertical
+          [view]="viewLimit"
+          [scheme]="colorScheme"
+          [results]="noItemsPerProduct"
+
+          [legend]="showLegend"
+          legendTitle="Products"
+
+          [yAxis]="true"
+          [showYAxisLabel]="true"
+          yAxisLabel="# Items"
+
+          [xAxis]="true"
+          [showXAxisLabel]="true"
+          xAxisLabel="Products"
+
+          [roundDomains]="true">
+
+        </ngx-charts-bar-vertical>
+
+      </div>
+
+      <div class="col">
+
+        <cintas-items-at-site-table
+          [noItemsPerProduct]="noItemsPerProduct">
+        </cintas-items-at-site-table>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="avoid-page-break">
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+
+      <h2 class="mb-2">Avg. Turnaround Time</h2>
+
+      <cintas-timeline-selection
+        [timeSelection]="timeSelection"
+        (timeSelectionChanged)="onPeriodChanged($event)">
+      </cintas-timeline-selection>
+    </div>
+
+    <h4 class="mb-4 text-dark d-none d-print-block">Time parameters: {{timeSelection}}</h4>
+
+    <div class="row mb-5">
+      <ng-container *ngIf="{
+        avgTurnaroundTime: avgTurnaroundTime$ | async
+      } as data">
+
+        <div class="col justify-content-center d-flex"
+             cintasFillParentContainer
+             [widthRatio]="2"
+             (parentSizeChanged)="changeView($event)">
+
+          <ngx-charts-bar-vertical
+            [scheme]="colorScheme"
+            [view]="viewLimit"
+            [results]="data.avgTurnaroundTime"
+            [legend]="showLegend"
+            [xAxis]="true"
+            [yAxis]="true"
+            [showYAxisLabel]="true"
+            yAxisLabel="Avg. Turnaround Time [Days]"
+            [showXAxisLabel]="false"
+            [barPadding]="5"
+            [roundDomains]="true">
+          </ngx-charts-bar-vertical>
+
+        </div>
+
+        <div class="col">
+
+          <cintas-avg-turnaround-time-table
+            [avgTurnaroundTime]="data.avgTurnaroundTime">
+          </cintas-avg-turnaround-time-table>
+
+        </div>
+      </ng-container>
+
+    </div>
+
+  </div>
+
+</div>
+

@@ -1,0 +1,62 @@
+<cintas-statistics-page-menu
+  title="Product Lifetime Delta"
+  [features]="features">
+</cintas-statistics-page-menu>
+
+<div class="row justify-content-center mb-5">
+
+  <div class="col-md-10 justify-content-center d-flex">
+    <cintas-chart-box
+      chartInfoTitle="Product Lifetime Delta"
+      [chartInfo]="chartInfo">
+      <ngx-charts-bar-horizontal
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="items$ | async"
+        [legend]="true"
+        [xAxis]="true"
+        [yAxis]="false"
+        [xScaleMin]="-10"
+        [xScaleMax]="10"
+        [showXAxisLabel]="true"
+        xAxisLabel="Lifetime Delta [Cycle Counts]"
+        [showYAxisLabel]="false"
+        [barPadding]="5"
+        [roundDomains]="true"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-horizontal>
+    </cintas-chart-box>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col">
+    <h2>Products and Lifetime Delta</h2>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product</th>
+        <th scope="col"># Items</th>
+        <th scope="col">Expected Lifetime</th>
+        <th scope="col">Avg. Cycle Count</th>
+        <th scope="col">Avg. Lifetime Delta<br/> [Cycle Counts]</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let loc of items$ | async; let i=index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{loc.name}}</td>
+        <td>{{loc.no_items_in_group}}</td>
+        <td>{{loc.expected_lifetime}}</td>
+        <td>{{loc.avg_cycle_count | number:'1.1-1'}}</td>
+        <td>{{loc.value | number:'1.1-1'}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

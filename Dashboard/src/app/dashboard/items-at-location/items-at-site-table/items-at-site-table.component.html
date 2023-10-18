@@ -1,0 +1,23 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Product Description</th>
+    <th scope="col"># Items at Site</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let row of noItemsPerProduct; let i=index">
+    <td scope="row">{{i + 1}}</td>
+    <td>{{row.name}}</td>
+    <td>{{row.value}}</td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <th></th>
+    <th>TOTAL</th>
+    <th>{{totalNoItemsAtSite}}</th>
+  </tr>
+  </tfoot>
+</table>

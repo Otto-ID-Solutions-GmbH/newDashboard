@@ -1,0 +1,42 @@
+<cintas-statistics-page-menu
+  title="Items Lost"
+  [features]="features"
+  (timeSelectionChanged)="timeSelection = $event">
+
+  <div class="btn-group ml-2" dropdown *ngIf="features.timeline">
+    <button id="button-customer" dropdownToggle class="btn btn-sm btn-outline-primary dropdown-toggle"
+            aria-controls="dropdown-customer">
+      <fa-icon [icon]="customerIcon" class="mr-1"></fa-icon>
+      {{currentCustomer ? currentCustomer.label : 'All Customers'}}
+    </button>
+    <div id="dropdown-customer" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+         aria-labelledby="button-time">
+      <button class="btn dropdown-item" type="button" (click)="onCustomerSelected(null)">
+        All Locations
+      </button>
+      <button class="btn dropdown-item" type="button" *ngFor="let customer of customers"
+              (click)="onCustomerSelected(customer.cuid)">
+        {{customer.label}}
+      </button>
+      <button class="btn dropdown-item" type="button" (click)="onCustomerSelected('Unknown')">
+        Unknown Site
+      </button>
+    </div>
+  </div>
+
+</cintas-statistics-page-menu>
+
+<cintas-items-lost-detail-now
+  *ngIf="timeSelection == 'Now' && !currentCustomer"
+  (customerSelected)="onCustomerSelected($event)">
+</cintas-items-lost-detail-now>
+
+<cintas-item-lost-detail-customer
+  *ngIf="timeSelection == 'Now' && currentCustomer"
+  [customer]="currentCustomer">
+</cintas-item-lost-detail-customer>
+
+<cintas-items-lost-detail-timeline
+  *ngIf="timeSelection != 'Now'"
+  [timeStep]="timeSelection">
+</cintas-items-lost-detail-timeline>

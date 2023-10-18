@@ -1,0 +1,119 @@
+<div class="row">
+  <div class="col">
+    <cintas-chart-box
+      chartInfoTitle="Lost Items per Site and Product"
+      [chartInfo]="chartInfoPerSite">
+      <h2>Number of Lost Items per Site and Product</h2>
+    </cintas-chart-box>
+  </div>
+</div>
+
+<div class="row justify-content-center mb-5">
+  <div class="btn col d-flex col-12 col-md-6 col-xl my-3" *ngFor="let cust of noItemPerProduct$ | async"
+       role="button"
+       (click)="onSelect(cust.name == 'Unknown' ? 'Unknown' : cust.cuid)">
+    <div class="card justify-content-center flex-fill bg-light">
+      <div class="card-body text-center py-2">
+        <h6 class="card-title">
+          {{cust.name}}
+        </h6>
+        <div class="row">
+          <div class="col-12 d-flex justify-content-center flex-fill">
+
+            <ngx-charts-pie-chart
+              cintasPieChartMargins
+              [view]="[150,150]"
+              [scheme]="colorScheme"
+              [results]="cust.series">
+            </ngx-charts-pie-chart>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Top Locations with Lost Items</h2>
+
+<div class="row mb-5">
+
+  <div class="col col-12 col-md-6 col-xl my-3">
+
+    <cintas-chart-box
+      chartInfoTitle="Top N Locations with Lost Items"
+      [chartInfo]="chartInfoTopN">
+      <ngx-charts-bar-horizontal
+        cintasFillParentContainer
+        [widthRatio]="3"
+
+        [xAxis]="true"
+        xAxisLabel="# Lost Items"
+
+        [legend]="true"
+        legendTitle="Locations"
+        legendPosition="right"
+
+        [scheme]="colorScheme"
+        [roundDomains]="true"
+        [showDataLabel]="true"
+
+        [results]="topLocations$ | async"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-horizontal>
+    </cintas-chart-box>
+
+  </div>
+</div>
+
+<h2>Product Types and Lost Items</h2>
+
+<div class="row mb-5">
+
+  <div class="col-12 col-md-6 col-xl my-3">
+    <table class="table table-striped" *ngIf="itemsLostQueryRes">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product Type</th>
+        <th scope="col">{{itemsLostQueryRes[0]?.total_count_label}}</th>
+        <th scope="col">{{itemsLostQueryRes[0]?.series[1]?.label}}</th>
+        <th scope="col">{{itemsLostQueryRes[0]?.series[0]?.label}}</th>
+        <th scope="col">{{itemsLostQueryRes[0]?.percent_lost_label}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of itemsLostQueryRes; let i=index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{data.name}}</td>
+        <td>{{data.total_count}}</td>
+        <td>{{data.series[1]?.value}}</td>
+        <td>{{data.series[0]?.value}}</td>
+        <td>{{data.percent_lost | percent:'1.1-2'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-12 col-md-6 col-xl my-3">
+
+    <cintas-chart-box
+      chartInfoTitle="Lost Items per Product Type"
+      [chartInfo]="chartInfoPerProductType">
+      <ngx-charts-bar-vertical-normalized
+        cintasFillParentContainer
+        [widthRatio]="2"
+        [yAxis]="true"
+        xAxisLabel="Product Types"
+        [xAxis]="true"
+        [legend]="true"
+        legendTitle="Item Status"
+        legendPosition="right"
+        [scheme]="colorScheme"
+        [results]="itemsLostQueryRes"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-vertical-normalized>
+    </cintas-chart-box>
+
+  </div>
+</div>

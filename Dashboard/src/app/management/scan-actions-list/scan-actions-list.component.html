@@ -1,0 +1,37 @@
+<cintas-statistics-page-menu
+  title="RFID Read History"
+  [features]="features"
+  [exportLoadingIndicator]="exportLoading"
+  (exportClicked)="onExport()">
+
+  <cintas-export-button
+    class="mr-2"
+    [title]="'Export current page with details'"
+    [exportLoadingIndicator]="exportDetailsLoading"
+    (exportClicked)="onExportDetails()">
+  </cintas-export-button>
+
+</cintas-statistics-page-menu>
+
+<ngx-datatable
+  #dataTable
+  class="bootstrap table-striped"
+  [columns]="columns"
+  [rows]="rows"
+
+  [columnMode]="'force'"
+  [headerHeight]="'auto'"
+  [footerHeight]="'auto'"
+  [rowHeight]="'auto'"
+
+  [loadingIndicator]="dataLoading"
+
+  [externalPaging]="true"
+  [count]="page.totalElements"
+  [offset]="page.pageNumber"
+  [limit]="page.size"
+  (page)='setPage($event)'
+
+  [externalSorting]="true"
+  (sort)="onSort($event)">
+</ngx-datatable>

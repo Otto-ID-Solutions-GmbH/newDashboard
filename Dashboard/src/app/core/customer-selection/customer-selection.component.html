@@ -1,0 +1,18 @@
+<div class="btn-group d-print-none" dropdown>
+  <button id="button-customer" dropdownToggle class="btn btn-outline-primary dropdown-toggle" [ngClass]="classString"
+          aria-controls="dropdown-time">
+    <fa-icon [icon]="customerIcon" class="mr-1"></fa-icon>
+    {{selectedCustomer ? selectedCustomer.label : 'Select customer...'}}
+  </button>
+  <div id="dropdown-time" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+       aria-labelledby="button-time">
+    <button class="btn dropdown-item" type="button"
+            (click)="onCustomerSelected()">
+      {{selectedCustomer ? 'Unselect customer...' : 'Select customer...'}}
+    </button>
+    <button class="btn dropdown-item" type="button" *ngFor="let c of customers"
+            (click)="onCustomerSelected(c)">
+      {{c.label}}
+    </button>
+  </div>
+</div>

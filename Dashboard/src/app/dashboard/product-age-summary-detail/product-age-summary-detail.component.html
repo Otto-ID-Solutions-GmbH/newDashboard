@@ -1,0 +1,59 @@
+<cintas-statistics-page-menu
+  title="Product Age Summary"
+  [features]="features"
+  [exportLoadingIndicator]="exportLoading"
+  (exportClicked)="onExport()">
+</cintas-statistics-page-menu>
+
+<div class="row justify-content-center mb-5">
+
+  <div class="col-md-10 justify-content-center d-flex">
+    <cintas-chart-box
+      chartInfoTitle="Product Age Summary"
+      [chartInfo]="chartInfo">
+      <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="data$ | async"
+
+        [legend]="showLegend"
+        legendTitle="Products"
+
+        [yAxis]="true"
+        [showYAxisLabel]="true"
+        yAxisLabel="Avg. Cycle Count"
+        [roundDomains]="true">
+      </ngx-charts-bar-vertical>
+    </cintas-chart-box>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col">
+    <h2>Product Age Summary</h2>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product Description</th>
+        <th scope="col">Avg. Age in Days</th>
+        <th scope="col">Avg. Cycle Count</th>
+        <th scope="col"># Items older 2 yrs</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of data$ | async; let i=index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{row.name}}</td>
+        <td>{{row.avg_age_in_days | number:'1.1-2'}}</td>
+        <td>{{row.value | number:'1.1-2'}}</td>
+        <td>{{row.no_old_items}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

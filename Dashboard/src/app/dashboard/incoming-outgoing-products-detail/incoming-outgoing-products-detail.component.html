@@ -1,0 +1,53 @@
+<cintas-statistics-page-menu
+  title="Incoming and Outgoing Products"
+  [timeSelection]="timeSelection"
+  (timeSelectionChanged)="timeselectionChange($event)"
+  [features]="features">
+</cintas-statistics-page-menu>
+
+<div class="row justify-content-center mb-5">
+  <div class="col d-flex justify-content-center">
+
+    <cintas-chart-box
+      chartInfoTitle="Incoming and Outgoing Products KPI"
+      [chartInfo]="chartInfo">
+
+      <ngx-charts-bar-vertical-2d
+        [results]="incomingOutgoingProductsData$ | async"
+
+        [view]="view"
+        [scheme]="incomingOutgoingGoodsColorScheme"
+
+        [legend]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+
+        [barPadding]="2"
+        [groupPadding]="4"
+
+        yAxisLabel="#Items"
+        [showYAxisLabel]="true"
+
+        [roundDomains]="true">
+
+        <ng-template #tooltipTemplate let-model="model">
+          <div class="tooltip-label">{{model.name}}</div>
+          <div class="tooltip-val">{{model.value}} items</div>
+          <div class="mt-2 text-left">
+            <table class="table table-sm table-bordered">
+              <tbody>
+              <tr *ngFor="let pp of model.per_product">
+                <td>{{pp.name}}</td>
+                <td>{{pp.value}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-template>
+
+      </ngx-charts-bar-vertical-2d>
+
+    </cintas-chart-box>
+
+  </div>
+</div>

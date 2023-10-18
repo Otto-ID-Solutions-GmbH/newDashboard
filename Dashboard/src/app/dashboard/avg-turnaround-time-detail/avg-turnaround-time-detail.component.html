@@ -1,0 +1,43 @@
+<cintas-statistics-page-menu
+  title="Avg. Product Turnaround Time"
+  [features]="features"
+  [timeSelection]="timeSelection"
+  (timeSelectionChanged)="onPeriodChanged($event)">
+</cintas-statistics-page-menu>
+
+<div class="row justify-content-center mb-5">
+
+  <div class="col-md-10 justify-content-center d-flex">
+    <cintas-chart-box
+      chartInfoTitle="Avg. Product Turnaround Time"
+      [chartInfo]="chartInfo">
+      <ngx-charts-bar-vertical
+        [scheme]="colorScheme"
+        [view]="view"
+        [results]="avgTurnaroundTime$ | async"
+        [legend]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [showYAxisLabel]="true"
+        yAxisLabel="Avg. Turnaround Time [Days]"
+        [showXAxisLabel]="false"
+        [barPadding]="5"
+        [roundDomains]="true"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-vertical>
+    </cintas-chart-box>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col">
+    <h2>Products and Avg. Turnaround Time</h2>
+
+    <cintas-avg-turnaround-time-table
+      [avgTurnaroundTime]="avgTurnaroundTime$ | async">
+    </cintas-avg-turnaround-time-table>
+
+  </div>
+</div>

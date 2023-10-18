@@ -1,0 +1,39 @@
+<h2>Number of Items Lost at "{{customer?.label}}"</h2>
+
+<div class="row justify-content-center mb-5">
+
+  <div class="col-md-10 justify-content-center d-flex my-3">
+
+    <cintas-chart-box
+      chartInfoTitle="Items Lost at Site"
+      [chartInfo]="chartInfo">
+      <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="data$ | async"
+
+        [yAxis]="true"
+        [showYAxisLabel]="true"
+        yAxisLabel="# Lost Items"
+        [roundDomains]="true"
+
+        [legend]="true"
+        legendTitle="Products"
+
+        (select)="onSelect($event)">
+      </ngx-charts-bar-vertical>
+    </cintas-chart-box>
+
+  </div>
+</div>
+
+
+<h2>Products and Item Counts</h2>
+
+<div class="row">
+
+  <div class="col d-flex col-12 col-md-6 col-xl my-3">
+    <cintas-items-lost-at-customer-table [data]="data$ | async"></cintas-items-lost-at-customer-table>
+  </div>
+
+</div>

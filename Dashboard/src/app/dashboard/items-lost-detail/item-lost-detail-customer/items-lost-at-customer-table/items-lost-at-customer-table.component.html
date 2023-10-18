@@ -1,0 +1,35 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Product Description</th>
+    <th scope="col"># Lost Items (90 days)</th>
+    <th scope="col">Allowance (%)</th>
+    <th scope="col" class="border-right"># Accountable Lost Items (90 days)</th>
+    <th scope="col"># Missing Items (60 days)</th>
+    <th scope="col"># Early Warning Items (30 days)</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of data; let i=index">
+    <td scope="row">{{i + 1}}</td>
+    <td>{{data.name}}</td>
+    <td>{{data.no_lost_items_90}}</td>
+    <td>{{data.no_lost_items_90 * 0.01}}</td>
+    <td class="border-right">{{data.no_lost_items_90 - data.no_lost_items_90 * 0.01}}</td>
+    <td>{{data.no_lost_items_60}}</td>
+    <td>{{data.no_lost_items_30}}</td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <th></th>
+    <th>TOTAL</th>
+    <th>{{noLostItemsSum}}</th>
+    <th>{{totalAllowance}}</th>
+    <th class="border-right">{{accountableSum}}</th>
+    <th>{{noMissingItemsSum}}</th>
+    <th>{{noEarlyWarningItemsSum}}</th>
+  </tr>
+  </tfoot>
+</table>

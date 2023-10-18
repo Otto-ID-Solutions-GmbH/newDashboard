@@ -1,0 +1,26 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Product Type</th>
+    <th scope="col">Avg. # Turnarounds in Period</th>
+    <th scope="col">Avg. Turnaround Time<br/>[Days]</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let loc of avgTurnaroundTime; let i=index">
+    <th scope="row">{{i + 1}}</th>
+    <td>{{loc.name}}</td>
+    <td>{{loc.avg_no_turnarounds | number:'1.1-1'}}</td>
+    <td>{{loc.value | number:'1.1-1'}}</td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <th></th>
+    <th>AVG.</th>
+    <th>{{totalAvgTurnarounds | number:'1.1-1'}}</th>
+    <th>{{totalAvgTurnaroundTime | number:'1.1-1'}}</th>
+  </tr>
+  </tfoot>
+</table>

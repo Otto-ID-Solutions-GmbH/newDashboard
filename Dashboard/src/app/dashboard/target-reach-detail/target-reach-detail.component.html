@@ -1,0 +1,30 @@
+<cintas-statistics-page-menu
+  title="Container Target Reach"
+  [features]="features"
+  (timeSelectionChanged)="onPeriodChanged($event)">
+</cintas-statistics-page-menu>
+
+<div class="row justify-content-center mb-5">
+
+  <div class="col-md-10 justify-content-center d-flex">
+
+    <cintas-chart-box
+      chartInfoTitle="Container Target Reach"
+      [chartInfo]="chartInfo">
+      <ngx-charts-line-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="data$ | async"
+
+        [xAxis]="true"
+        xAxisLabel="Date of Distribution"
+
+        [timeline]="true"
+        [xAxisTickFormatting]="statServices.xAxisTickFormatting"
+
+        (select)="onSelect($event)">
+      </ngx-charts-line-chart>
+    </cintas-chart-box>
+
+  </div>
+</div>

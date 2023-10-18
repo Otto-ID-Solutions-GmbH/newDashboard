@@ -1,0 +1,30 @@
+<cintas-statistics-page-menu
+  title="Items at Site over Time"
+  [timeSelection]="timeSelection"
+  (timeSelectionChanged)="timeselectionChange($event)"
+  [features]="features">
+</cintas-statistics-page-menu>
+
+<div class="row justify-content-center mb-5">
+  <div class="col d-flex justify-content-center">
+
+    <cintas-chart-box
+      chartInfoTitle="Items at site over time KPI"
+      [chartInfo]="chartInfo">
+
+      <ngx-charts-line-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="itemsAtSiteOverTimeData$ | async"
+
+        [legend]="true"
+        legendTitle="Product types"
+        [xAxis]="true"
+        [yAxis]="true"
+        [timeline]="true">
+      </ngx-charts-line-chart>
+
+    </cintas-chart-box>
+
+  </div>
+</div>

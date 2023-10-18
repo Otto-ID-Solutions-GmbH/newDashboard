@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: "http://172.16.0.1",
+  apiUrl: "http://127.0.0.1:8000",
   facilityCuid: "cjnadbv8q0003vwt9ee1e9sud",
 
   theme: {

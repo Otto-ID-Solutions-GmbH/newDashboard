@@ -42,6 +42,13 @@ export const KPIS: { [id: string]: any; } = {
     'active': false,
     'description': "Shows the avg. number of item turnarounds per product in a period and the average time in days between delivery and return.<br/> The average turnaround time in days is computed by computing the difference between delivery and return over all deliveries and for all items and averaging the deltas per product."
   },
+  productAgeSummary: {
+    'label': 'Product Age Summary',
+    'link': '/dashboard/age-summary',
+    'icon': faHourglassHalf,
+    'active': false,
+    'description': "Shows the product age in cycle count and in days.<br/> Cycle count are increased each time an item is washed. The age in days is computed since registering an item in the app.<br/> The KPI is computed as the average cycle count / days of all items per product."
+  },
 
   containerTargetReach: {
     'label': 'Container Target Reach',
